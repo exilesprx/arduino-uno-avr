@@ -1,0 +1,18 @@
+services:
+  build:
+    image: exilesprx/arduino-uno-avr:build
+    build:
+      context: .docker
+      target: build
+      args:
+        VERSION: 0.13.0
+    volumes:
+      - source:/usr/src
+
+volumes:
+  source:
+    driver: local
+    driver_opts:
+      device: .
+      o: bind
+      type: none
