@@ -5,6 +5,12 @@ const MicroBuild = microzig.MicroBuild(.{
     .avr = true,
 });
 
+const Targets = struct {
+    target: *const microzig.Target,
+    name: []const u8,
+    file: []const u8,
+};
+
 pub fn build(b: *std.Build) void {
     const mz_dep = b.dependency("microzig", .{});
     const mb = MicroBuild.init(b, mz_dep) orelse return;
@@ -26,9 +32,3 @@ pub fn build(b: *std.Build) void {
         mb.install_firmware(fw, .{ .format = .elf });
     }
 }
-
-const Targets = struct {
-    target: *const microzig.Target,
-    name: []const u8,
-    file: []const u8,
-};

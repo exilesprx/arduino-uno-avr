@@ -1,15 +1,15 @@
 const std = @import("std");
 const microzig = @import("microzig");
 
-const port = microzig.chip.peripherals.PORTB;
-
 pub fn main() !void {
-    port.DDRB |= (1 << 5); // set to output
-    port.PORTB |= 0x00; // turn light off
+    const port = microzig.chip.peripherals.PORTB;
+    const pin = 5;
+    port.DDRB |= (1 << pin);
+    port.PORTB = 0x00;
 
     while (true) {
+        port.PINB |= (1 << pin);
         delay(2_000);
-        port.PINB |= (1 << 5);
     }
 }
 
