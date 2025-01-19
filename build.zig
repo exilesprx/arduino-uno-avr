@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
     const mb = MicroBuild.init(b, mz_dep) orelse return;
 
     const available_targets = [_]Targets{
-        .{ .target = mb.ports.avr.boards.arduino.nano, .name = "arduino-nano", .file = "src/main.zig" },
+        // .{ .target = mb.ports.avr.boards.arduino.nano, .name = "arduino-nano", .file = "src/main.zig" },
         .{ .target = mb.ports.avr.boards.arduino.uno_rev3, .name = "arduino-uno", .file = "src/main.zig" },
     };
 
@@ -28,7 +28,21 @@ pub fn build(b: *std.Build) void {
             .root_source_file = b.path(t.file),
         });
 
-        mb.install_firmware(fw, .{});
         mb.install_firmware(fw, .{ .format = .elf });
+
+        // TODO: fix tests - microzig isn't available in tests
+        // const target = b.standardTargetOptions(.{});
+        // const exe = b.addTest(.{
+        //     .name = "tests",
+        //     .root_source_file = b.path("src/main.zig"),
+        //     .target = target,
+        // });
+
+        // according to my laptop example, this should work
+        // exe.root_module.addImport("microzig", mb.root_module);
+        //
+        // const run_exe = b.addRunArtifact(exe);
+        // const run_tests = b.step("test", "Run tests");
+        // run_tests.dependOn(&run_exe.step);
     }
 }

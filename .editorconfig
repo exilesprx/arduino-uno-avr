@@ -3,5 +3,11 @@ root = true
 [*]
 end_of_line = lf
 trim_trailing_whitespace = true
+
+[*.{zig,zon}]
 indent_style = space
 indent_size = 4
+
+[{justfile,Dockerfile,docker-compose.yml}]
+indent_style = space
+indent_size = 2

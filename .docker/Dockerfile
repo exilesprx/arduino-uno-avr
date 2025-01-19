@@ -2,6 +2,8 @@ FROM debian:bookworm-20241223-slim AS base
 RUN apt-get -y update && \
   apt-get -y install --no-install-recommends \
   ca-certificates \
+  git \
+  ssh \
   wget \
   xz-utils && \
   apt-get clean && \
