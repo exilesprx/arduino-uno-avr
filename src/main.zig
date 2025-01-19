@@ -2,6 +2,7 @@ const std = @import("std");
 const microzig = @import("microzig");
 const ArduinoBoard = @import("arduino-board.zig").ArduinoBoard;
 const PortB = @import("portb.zig").PortB;
+const expectEqual = std.testing.expectEqual;
 
 pub fn main() !void {
     var port = ArduinoBoard{ .portb = PortB.init(microzig.chip.peripherals.PORTB, 5, true) };
@@ -17,4 +18,9 @@ fn delay(ms: u16) void {
     for (0..ms) |_| {
         microzig.core.experimental.debug.busy_sleep(1_000);
     }
+}
+
+test "microzig module is available" {
+    const a = 1;
+    try expectEqual(a, 1);
 }

@@ -20,4 +20,4 @@ term:
 
 test:
   @echo "Running tests..."
-  docker compose run --remove-orphans build zig build test
+  docker compose run --remove-orphans build zig build test --summary all

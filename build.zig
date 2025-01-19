@@ -30,19 +30,17 @@ pub fn build(b: *std.Build) void {
 
         mb.install_firmware(fw, .{ .format = .elf });
 
-        // TODO: fix tests - microzig isn't available in tests
-        // const target = b.standardTargetOptions(.{});
-        // const exe = b.addTest(.{
-        //     .name = "tests",
-        //     .root_source_file = b.path("src/main.zig"),
-        //     .target = target,
-        // });
+        const target = b.standardTargetOptions(.{});
+        const exe = b.addTest(.{
+            .name = "tests",
+            .root_source_file = b.path("src/main.zig"),
+            .target = target,
+        });
 
-        // according to my laptop example, this should work
-        // exe.root_module.addImport("microzig", mb.root_module);
-        //
-        // const run_exe = b.addRunArtifact(exe);
-        // const run_tests = b.step("test", "Run tests");
-        // run_tests.dependOn(&run_exe.step);
+        exe.root_module.addImport("microzig", fw.core_mod);
+
+        const run_exe = b.addRunArtifact(exe);
+        const run_tests = b.step("test", "Run tests");
+        run_tests.dependOn(&run_exe.step);
     }
 }
